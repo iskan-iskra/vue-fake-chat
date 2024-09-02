@@ -51,7 +51,7 @@ session storage + local storage
 
 ### message controller
 
-broadcast chanel
+broadcast chanel + indexed DB
 
 ## Projects problem:
 
