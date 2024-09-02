@@ -13,6 +13,7 @@ class ThemeTool {
     theme_storage_key,
     theme_attribute_key
   }) {
+    this.storageKey = theme_storage_key
     this.storage = Object.freeze(new AppLocalStorage(theme_storage_key))
     this.defaulTheme = theme_default_key
     this.#themeAttributeKey = theme_attribute_key

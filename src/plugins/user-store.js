@@ -48,7 +48,6 @@ const authPlugin = {
       _init() {
         this.onlineIdList = userStatusTool.handleMessage()
         this.filterUserList()
-        console.log(this.onlineIdList)
         documentTitleTool.resetTitle()
         const savedUserId = userTool.getCurrentUser()
         if (!savedUserId) return

@@ -18,7 +18,7 @@
           :userId="user.id"
           :userName="user.name"
           :userStatus="user.status"
-          :actionDisabled="!user.status"
+          :actionDisabled="false"
           actionTitle="chat"
           @actionHandler="() => chatWith(user)"
         />
