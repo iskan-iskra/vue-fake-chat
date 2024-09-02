@@ -47,7 +47,7 @@ local storage
 
 ### users controller
 
-session storage
+session storage + local storage
 
 ### message controller
 

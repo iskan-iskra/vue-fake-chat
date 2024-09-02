@@ -18,9 +18,9 @@
           :userId="user.id"
           :userName="user.name"
           :userStatus="user.status"
-          :actionDisabled="user.status"
-          actionTitle="loggin"
-          @actionHandler="() => userAuthHandler(user)"
+          :actionDisabled="!user.status"
+          actionTitle="chat"
+          @actionHandler="() => chatWith(user)"
         />
       </div>
     </div>
@@ -29,9 +29,11 @@
 
 <script>
 import AppUserCard from './AppUserCard.vue'
+
 export default {
-  name: 'AppUserAuthList',
+  name: 'AppUserChatList',
   components: { AppUserCard },
+
   data() {
     return {
       searchQuery: ''
@@ -39,15 +41,14 @@ export default {
   },
   computed: {
     userList() {
-      return this.$userStore.userList.filter((user) =>
-        user.name.toLowerCase().includes(this.searchQuery.toLocaleLowerCase())
-      )
+      return this.$userStore.userList
+        .filter((el) => el.id !== this.$userStore.currentUser.id)
+        .filter((user) => user.name.toLowerCase().includes(this.searchQuery.toLocaleLowerCase()))
     }
   },
   methods: {
-    userAuthHandler(user) {
-      this.$userStore.loginHandler(user)
-      this.$router.push('/chat')
+    chatWith(user) {
+      console.log(user)
     }
   }
 }

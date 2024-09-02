@@ -7,17 +7,19 @@
       </h5>
       <div class="card-text">
         <span>status: </span>
-        <span>{{ userStatusTitle }}</span>
+        <span class="badge" :class="userStatus ? 'text-bg-success' : 'text-bg-danger'">{{
+          userStatusTitle
+        }}</span>
       </div>
     </div>
     <div class="card-footer">
       <button
-        :disabled="userStatus"
+        :disabled="actionDisabled"
         type="button"
         class="btn btn-outline-primary"
-        @click="logingHanlder"
+        @click="actionClick"
       >
-        loggin
+        {{ actionTitle }}
       </button>
     </div>
   </div>
@@ -25,7 +27,7 @@
 
 <script>
 export default {
-  name: 'AppUserAuthCard',
+  name: 'AppUserCard',
   props: {
     userName: {
       type: String,
@@ -36,7 +38,15 @@ export default {
       required: true
     },
     userStatus: {
-      Boolean,
+      type: Boolean,
+      required: true
+    },
+    actionTitle: {
+      type: String,
+      required: true
+    },
+    actionDisabled: {
+      type: Boolean,
       required: true
     }
   },
@@ -47,8 +57,8 @@ export default {
     }
   },
   methods: {
-    logingHanlder() {
-      this.$emit('loging-handler')
+    actionClick() {
+      this.$emit('action-handler')
     }
   }
 }

@@ -1,7 +1,12 @@
 <template>
   <div>
-    <h1>This is an chat list page</h1>
+    <app-user-chat-list />
   </div>
 </template>
 
-<style></style>
+<script>
+import { AppUserChatList } from '@/components'
+export default {
+  components: { AppUserChatList }
+}
+</script>

@@ -20,12 +20,20 @@ const authPlugin = {
         return !!this.currentUser
       },
 
+      filterUserList() {
+        this.userList = this.userList.map((el) => ({
+          ...el,
+          status: this.onlineIdList.includes(el.id)
+        }))
+      },
+
       loginHandler(user) {
         if (this.currentUser) return
         this.currentUser = user
         userTool.authUser(user.id)
         documentTitleTool.changeTitle(user.name)
         this.onlineIdList = userStatusTool.setOnlineStatus(user.id)
+        this.filterUserList()
       },
 
       logoutHandler() {
@@ -34,29 +42,39 @@ const authPlugin = {
         userTool.logoutUser()
         documentTitleTool.resetTitle()
         this.currentUser = null
+        this.filterUserList()
       },
 
       _init() {
+        this.onlineIdList = userStatusTool.handleMessage()
+        this.filterUserList()
+        console.log(this.onlineIdList)
         documentTitleTool.resetTitle()
         const savedUserId = userTool.getCurrentUser()
         if (!savedUserId) return
         const savedUser = this.userList.find((el) => el.id === +savedUserId)
         if (!savedUser) return
         this.currentUser = savedUser
-        userStatusTool.setOnlineStatus(savedUser.id)
+        this.onlineIdList = userStatusTool.setOnlineStatus(savedUser.id)
         documentTitleTool.changeTitle(savedUser.name)
-        this.onlineIdList = userStatusTool.handleMessage()
+        this.filterUserList()
       }
     })
 
     window.addEventListener('storage', (event) => {
       if (event.key === userStatusTool.storageKey) {
-        this.onlineIdList = userStatusTool.handleMessage()
-        root.userList = root.userList.map((el) => ({
-          ...el,
-          status: this.onlineIdList.includes(el.id)
-        }))
+        const res = userStatusTool.handleMessage()
+        root.onlineIdList = res
+        console.log(res)
+
+        root.filterUserList()
+
+        console.log(root.userList)
       }
+    })
+
+    window.addEventListener('unload', () => {
+      root.logoutHandler()
     })
 
     app.config.globalProperties.$userStore = root
