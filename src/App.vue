@@ -1,16 +1,3 @@
-<script>
-import { AppHeader } from '@/components'
-
-export default {
-  components: {
-    AppHeader
-  },
-  beforeUnmount() {
-    this.$userStore.logoutHandler()
-  }
-}
-</script>
-
 <template>
   <AppHeader class="py-3" />
   <main>
@@ -23,3 +10,15 @@ export default {
     </div>
   </main>
 </template>
+<script>
+import { AppHeader } from '@/components'
+
+export default {
+  components: {
+    AppHeader
+  },
+  beforeUnmount() {
+    this.$userStore.logoutHandler()
+  }
+}
+</script>

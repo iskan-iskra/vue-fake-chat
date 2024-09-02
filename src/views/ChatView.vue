@@ -24,7 +24,6 @@
           ref="messageInput"
           type="text"
           class="form-control"
-          :disabled="messageLoading"
           @keyup.enter="sendMessageHandler"
         />
       </div>
@@ -82,6 +81,7 @@ export default {
       }
     },
     async sendMessageHandler() {
+      if (this.messageLoading) return
       try {
         this.messageLoading = true
         const messageParams = {
@@ -127,7 +127,7 @@ export default {
   },
 
   beforeUnmount() {
-    chatChanelTool.close() // Закрываем канал при уничтожении компонента
+    chatChanelTool.close()
   }
 }
 </script>

@@ -21,7 +21,3 @@ export default {
   }
 }
 </script>
-
-<!--  <div class="d-flex py-4 flex-column justify-content-end gap-4">
-    <app-message-card v-for="message in messageList" :key="message.time_stamp" :message="message" />
-  </div> -->

@@ -42,7 +42,7 @@ export default {
   computed: {
     userList() {
       return this.$userStore.userList
-        .filter((el) => el.id !== this.$userStore.currentUser.id)
+        .filter((el) => el.id !== this.$userStore?.currentUser?.id)
         .filter((user) => user.name.toLowerCase().includes(this.searchQuery.toLocaleLowerCase()))
     }
   },
