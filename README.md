@@ -52,3 +52,7 @@ session storage + local storage
 ### message controller
 
 broadcast chanel
+
+## Projects problem:
+
+The main problem is custom user store (need more efficient store)

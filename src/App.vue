@@ -14,7 +14,7 @@ export default {
 <template>
   <AppHeader class="py-3" />
   <main>
-    <div class="container">
+    <div class="container h-100">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
@@ -23,5 +23,3 @@ export default {
     </div>
   </main>
 </template>
-
-<style scoped></style>
