@@ -1,5 +1,5 @@
 class ChatChanelTool {
-  constructor(channelName) {
+  constructor({ channelName }) {
     this.channelName = channelName
   }
 
@@ -23,4 +23,4 @@ class ChatChanelTool {
   }
 }
 
-export default new ChatChanelTool('chat_chanel')
+export default new ChatChanelTool({ channelName: 'chat_chanel' })

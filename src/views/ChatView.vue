@@ -13,27 +13,39 @@
       </h5>
     </div>
 
-    <div class="flex-grow-1 overflow-y-auto overflow-x-hidden">
-      <pre>{{ chatValue }}</pre>
+    <div class="flex-grow-1 overflow-y-auto" ref="messageContainer">
+      <app-message-list :messageList="chatValue" />
     </div>
+
     <div class="d-flex align-items-center gap-3">
       <div class="flex-grow-1">
         <input
           v-model="newMessage"
+          ref="messageInput"
           type="text"
           class="form-control"
+          :disabled="messageLoading"
           @keyup.enter="sendMessageHandler"
         />
       </div>
-      <button type="button" class="btn btn-primary" @click="sendMessageHandler">send</button>
+      <button
+        :disabled="messageLoading"
+        type="button"
+        class="btn btn-primary"
+        @click="sendMessageHandler"
+      >
+        send
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { AppMessageList } from '@/components'
 import { chatDataBaseTool, chatChanelTool, hashUserTool } from '@/tools'
 export default {
   name: 'ChatView',
+  components: { AppMessageList },
   data() {
     return {
       chatValue: [],
@@ -52,9 +64,22 @@ export default {
       return hashUserTool(this.chatFriend, this.$userStore.currentUser)
     }
   },
+
   methods: {
     backRoutingHandler() {
       this.$router.back()
+    },
+    setMessageInputFocus() {
+      if (this.$refs.messageInput) {
+        this.$refs.messageInput.focus()
+      }
+    },
+    scrollToBottom() {
+      const container = this.$refs.messageContainer
+      if (container) {
+        container.scrollTop = container.scrollHeight
+        console.log(container)
+      }
     },
     async sendMessageHandler() {
       try {
@@ -68,6 +93,10 @@ export default {
         this.chatValue = await chatDataBaseTool.getMessages(this.hashCurrentUserPair)
         chatChanelTool.sendMessage(this.hashCurrentUserPair, messageParams)
         this.newMessage = ''
+        this.$nextTick(() => {
+          this.setMessageInputFocus()
+          this.scrollToBottom()
+        })
       } catch (error) {
         console.log(error)
       } finally {
@@ -87,6 +116,13 @@ export default {
       if (this.hashCurrentUserPair === hash) {
         this.chatValue = [...this.chatValue, message]
       }
+      this.$nextTick(() => {
+        this.scrollToBottom()
+      })
+    })
+
+    this.$nextTick(() => {
+      this.scrollToBottom()
     })
   },
 

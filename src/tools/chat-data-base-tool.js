@@ -1,5 +1,5 @@
 class ChatDatabase {
-  constructor(dbName, version = 1) {
+  constructor({ dbName, version = 1 }) {
     this.dbName = dbName
     this.version = version
     this.db = null
@@ -11,7 +11,6 @@ class ChatDatabase {
 
       request.onupgradeneeded = (event) => {
         const db = event.target.result
-        // Проверьте, существует ли объектное хранилище, и создайте его, если нет
         if (!db.objectStoreNames.contains('chats')) {
           const chatStore = db.createObjectStore('chats', { keyPath: 'hash' })
           chatStore.createIndex('hash', 'hash', { unique: true })
@@ -31,7 +30,7 @@ class ChatDatabase {
 
   async addMessage(hash, message) {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(['chats'], 'readwrite') // Убедитесь, что используется правильное имя хранилища
+      const transaction = this.db.transaction(['chats'], 'readwrite')
       const store = transaction.objectStore('chats')
 
       const request = store.get(hash)
@@ -50,7 +49,7 @@ class ChatDatabase {
 
   async getMessages(hash) {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(['chats'], 'readonly') // Убедитесь, что используется правильное имя хранилища
+      const transaction = this.db.transaction(['chats'], 'readonly')
       const store = transaction.objectStore('chats')
 
       const request = store.get(hash)
@@ -64,4 +63,4 @@ class ChatDatabase {
   }
 }
 
-export default new ChatDatabase('chatDB')
+export default new ChatDatabase({ dbName: 'chatDB' })

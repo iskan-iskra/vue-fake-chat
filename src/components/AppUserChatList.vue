@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     chatWith(user) {
-      console.log(user)
       this.$router.push(`/chat/${user.id}`)
     }
   }

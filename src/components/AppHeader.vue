@@ -4,10 +4,10 @@
       <h6 class="d-block d-sm-none m-0">FCA</h6>
       <h4 class="d-none d-sm-block m-0">Fake Chat App</h4>
       <div class="ms-auto hstack gap-2">
-        <div v-if="$userStore.currentUser">
+        <h5 class="mb-0" v-if="$userStore.currentUser">
           <span>Current user: </span>
-          <span>{{ $userStore.currentUser.name }}</span>
-        </div>
+          <span class="text-success">{{ $userStore.currentUser.name }}</span>
+        </h5>
         <div class="btn-group">
           <button
             v-if="$userStore.currentUser"
