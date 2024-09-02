@@ -1,8 +1,12 @@
-<script setup>
-</script>
-
 <template>
-  <main>
-    <h1>test</h1>
-  </main>
+  <app-user-auth-list />
 </template>
+
+<script>
+import { AppUserAuthList } from '@/components'
+export default {
+  components: {
+    AppUserAuthList
+  }
+}
+</script>

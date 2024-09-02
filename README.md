@@ -6,8 +6,9 @@ This project simulates the behavior of chat between browser tabs
 
 - vite
 - vue 3
-- vue-router
+- vue-router 4
 - JavaScript
+- bootstrap 5
 
 ## Project commands
 
@@ -37,3 +38,17 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Project description:
+
+### theme controller
+
+local storage
+
+### users controller
+
+session storage
+
+### message controller
+
+broadcast chanel
